@@ -1,75 +1,59 @@
-[![Build status](https://ci.appveyor.com/api/projects/status/njbb56ee6h7r15fy?svg=true)](https://ci.appveyor.com/project/DavidPaquette/pugzor)
+# Pugnet
 
-Pugzor is the Pug view engine for ASP.NET Core. You might know Pug by its previous name, Jade.  
-You can read more about Pug over at their website: https://pugjs.org/api/getting-started.html
+**Pugnet** is a modern Pug view engine for ASP.NET Core, forked from [Pugzor](https://github.com/DavidPaquette/Pugzor). It is updated for .NET 8 and using Jering's `Javascript.NodeJS`.
 
-Pugzor works by passing your models directly to the node version of Pug via Steve Sanderson's glorious [JavaScript Services](https://github.com/aspnet/JavaScriptServices).  
-It is actually pretty performant and there are many optimizations still to be made.
+---
 
-# Instructions
+Learn more about Pug at [pugjs.org](https://pugjs.org/api/getting-started.html).
 
-1. Install the Pugzor package from NuGet
+---
 
-   ```PowerShell
-    Install-Package pugzor
-   ```
-2. Hook into Pugzor in your Startup.cs
+## 🔧 Installation
 
-   ```csharp
-   public void ConfigureServices(IServiceCollection services)
-   {
-         // Add framework services.
-         services.AddMvc()
-                 .AddPugzor();
-   }
-   ```
-# How to access your model
+```powershell
+Install-Package Pugnet
+```
 
-You can now add .pug files directly to your Views directory alongside the Razor files.  
-The model is available in your Pug view directly, the view data and model state are attached as properties to the pug model.
+*Note: Package availability coming soon.*
 
-If your model looked like this:
+---
 
-   ```csharp
-   public class Model
-   {
-      public string FirstName = "name";
-   }
-   ```
+## 🔨 Usage
 
-You would access the model like this:
+In your `Program.cs`:
 
-   ```pug
-   p #{FirstName}
-   ```
-   
-The ViewDataDictionary is accessible like this:
+```csharp
+services.AddControllersWithViews()
+        .AddPugnet();
+```
 
-   ```pug
-   p #{ViewData.KEY}
-   ```
-   
-The ModelStateDictionary is accessible like this:
+Place your `.pug` files in the `Views` directory.
 
-   ```pug
-   p #{ModelState.KEY.errors[INDEX].errorMessage}
-   ```
+### Accessing Model Properties
 
-# FAQ
+**Model:**
 
-### Is this a joke?
+```csharp
+public class Model
+{
+    public string FirstName { get; set; } = "John";
+}
+```
 
-It started off as one but it kind of worked okay so we rolled with it.
+**Pug Template:**
 
-### Could I use it in production?
+```pug
+p= FirstName
+```
 
-Sure. I mean it is your production site so do whatever you want.  
-If you have a bunch of Pug views already, then this could help you transition to using an ASP.NET Core back end with little difficulty. I don't know that I'd start a whole new site off using it.
+---
 
-### What's the license?
+## 📄 License
 
-MIT
+Apache 2.0 License. See [LICENSE](LICENSE).
 
-### Did anybody actually ask these questions?
+---
 
-No, we're just guessing at what people would ask. Thanks for reminding us how inconsequential we are.
+<div align="center">
+  <strong>Contributions and issues are welcome!</strong>
+</div>

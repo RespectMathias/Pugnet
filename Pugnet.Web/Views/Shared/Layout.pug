@@ -1,0 +1,33 @@
+﻿doctype html
+html(lang="en")
+  head
+    meta(charset="utf-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    title #{ViewData["Title"]} - Pugnet.Web
+    link(rel="stylesheet", href="/lib/bootstrap/dist/css/bootstrap.min.css")
+    link(rel="stylesheet", href="/css/site.css")
+    link(rel="stylesheet", href="/Pugnet.Web.styles.css")
+  body
+    header
+      nav.navbar.navbar-expand-sm.navbar-toggleable-sm.navbar-light.bg-white.border-bottom.box-shadow.mb-3
+        .container-fluid
+          a.navbar-brand(href="/") Pugnet.Web
+          button.navbar-toggler(type="button", data-bs-toggle="collapse", data-bs-target=".navbar-collapse", aria-controls="navbarSupportedContent", aria-expanded="false", aria-label="Toggle navigation")
+            span.navbar-toggler-icon
+          .navbar-collapse.collapse.d-sm-inline-flex.justify-content-between
+            ul.navbar-nav.flex-grow-1
+              li.nav-item
+                a.nav-link.text-dark(href="/") Home
+              li.nav-item
+                a.nav-link.text-dark(href="/Home/Privacy") Privacy
+    .container
+      main(role="main", class="pb-3")
+        block body
+    footer.border-top.footer.text-muted
+      .container
+        | &copy; 2024 - Pugnet.Web - 
+        a(href="/Home/Privacy") Privacy
+    script(src="/lib/jquery/dist/jquery.min.js")
+    script(src="/lib/bootstrap/dist/js/bootstrap.bundle.min.js")
+    script(src="/js/site.js")
+    block scripts

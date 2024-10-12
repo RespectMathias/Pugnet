@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Views\Home\Index.pug" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Views\Home\Index.pug" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Pugnet\Pugnet.csproj" />
+  </ItemGroup>
+
+</Project>

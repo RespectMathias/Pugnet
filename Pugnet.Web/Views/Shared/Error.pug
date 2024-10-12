@@ -1,0 +1,27 @@
+﻿extends ../Shared/layout.pug
+
+block body
+  - console.log(ViewData)
+  h1.text-danger Error.
+  h2.text-danger An error occurred while processing your request.
+
+  if Model.ShowRequestId
+    p
+      strong Request ID:
+      code #{Model.RequestId}
+
+  h3 Development Mode
+  p 
+    | Swapping to 
+    strong Development
+    | environment will display more detailed information about the error that occurred.
+  
+  p
+    strong The Development environment shouldn't be enabled for deployed applications.
+    | It can result in displaying sensitive information from exceptions to end users. For local debugging, enable the 
+    strong Development
+    | environment by setting the 
+    strong ASPNETCORE_ENVIRONMENT
+    | environment variable to 
+    strong Development
+    | and restarting the app.

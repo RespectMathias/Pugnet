@@ -1,0 +1,10 @@
+﻿extends ../Shared/layout.pug
+
+block body
+  - console.log(ViewData)
+  .text-center
+    h1.display-4 Welcome
+    p
+      | Learn about
+      a(href="https://learn.microsoft.com/aspnet/core") building Web apps with ASP.NET Core.
+    p #{ViewData.Title}

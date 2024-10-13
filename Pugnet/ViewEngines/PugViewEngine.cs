@@ -1,16 +1,15 @@
 using Microsoft.AspNetCore.Mvc.ViewEngines;
 using Microsoft.Extensions.Options;
 using Pugnet.Interfaces;
-using Pugnet.Extensions;
 using Pugnet.Helpers;
-
+using Pugnet.Options;
 using static Pugnet.Constants;
 
-namespace Pugnet;
+namespace Pugnet.ViewEngines;
 
-public class PugnetViewEngine(IPugRendering pugRendering, IOptions<PugnetViewEngineOptions> optionsAccessor) : IPugnetViewEngine
+public class PugViewEngine(IPugRenderer pugRenderer, IOptions<ViewEngineOptions> optionsAccessor) : IPugViewEngine
 {
-    private readonly PugnetViewEngineOptions _options = optionsAccessor?.Value ?? throw new ArgumentNullException(nameof(optionsAccessor));
+    private readonly ViewEngineOptions _options = optionsAccessor?.Value ?? throw new ArgumentNullException(nameof(optionsAccessor));
 
     public ViewEngineResult FindView(ActionContext context, string viewName, bool isMainPage)
     {
@@ -24,7 +23,7 @@ public class PugnetViewEngine(IPugRendering pugRendering, IOptions<PugnetViewEng
             if (File.Exists(view))
             {
                 // ReSharper disable once Mvc.ViewNotResolved
-                return ViewEngineResult.Found("Default", new PugnetView(view, pugRendering));
+                return ViewEngineResult.Found("Default", new PugView(view, pugRenderer));
             }
             checkedLocations.Add(view);
         }
@@ -43,6 +42,6 @@ public class PugnetViewEngine(IPugRendering pugRendering, IOptions<PugnetViewEng
         }
 
         // ReSharper disable once Mvc.ViewNotResolved
-        return ViewEngineResult.Found("Default", new PugnetView(applicationRelativePath, pugRendering));
+        return ViewEngineResult.Found("Default", new PugView(applicationRelativePath, pugRenderer));
     }
 }

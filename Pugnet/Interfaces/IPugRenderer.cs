@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc.ViewFeatures;
 
 namespace Pugnet.Interfaces;
 
-public interface IPugRendering
+public interface IPugRenderer
 {
     Task<string> Render(FileInfo pugFile, object model, ViewDataDictionary viewData, ModelStateDictionary modelState);
 }

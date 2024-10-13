@@ -1,19 +1,20 @@
 using Jering.Javascript.NodeJS;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Microsoft.Extensions.Options;
 using Pugnet.Interfaces;
 using Pugnet.Helpers;
-using Microsoft.Extensions.Options;
+using Pugnet.Options;
 
-namespace Pugnet;
+namespace Pugnet.Rendering;
 
-public class PugRendering : IPugRendering
+public class PugRenderer : IPugRenderer
 {
     private readonly INodeJSService _nodeJSService;
-    private readonly PugnetViewEngineOptions _options;
+    private readonly ViewEngineOptions _options;
     private readonly string _tempDirectory;
 
-    public PugRendering(INodeJSService nodeJSService, IOptions<PugnetViewEngineOptions> options)
+    public PugRenderer(INodeJSService nodeJSService, IOptions<ViewEngineOptions> options)
     {
         _nodeJSService = nodeJSService;
         _tempDirectory = TemporaryDirectoryHelper.CreateTemporaryDirectory();

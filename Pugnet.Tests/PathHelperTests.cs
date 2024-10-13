@@ -5,12 +5,12 @@ namespace Pugnet.Tests;
 [Trait("Category", "Helper")]
 public class PathHelperTests
 {
-    public static IEnumerable<object[]> Paths = new List<object[]>
-    {
-        new object[] { "/this/is/absolute/path", true },
-        new object[] { "~/this/is/absolute/path", true },
-        new object[] { "this/is/relative/path", false }
-    };
+    public static readonly IEnumerable<object[]> Paths =
+    [
+        ["/this/is/absolute/path", true],
+        ["~/this/is/absolute/path", true],
+        ["this/is/relative/path", false]
+    ];
 
     [Theory]
     [MemberData(nameof(Paths))]

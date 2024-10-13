@@ -1,6 +1,6 @@
-namespace Pugnet;
+namespace Pugnet.Options;
 
-public class PugnetViewEngineOptions
+public class ViewEngineOptions
 {
     public IList<string> ViewLocationFormats { get; } = [];
     public string? BaseDir { get; set; }

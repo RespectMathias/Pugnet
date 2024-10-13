@@ -1,37 +1,27 @@
+using Jering.Javascript.NodeJS;
 using Microsoft.AspNetCore.Mvc.ApplicationParts;
 using Microsoft.AspNetCore.Mvc.Internal;
 using Microsoft.Extensions.DependencyInjection;
 using Pugnet.Interfaces;
-using Pugnet.Extensions;
-using Jering.Javascript.NodeJS;
 
 namespace Pugnet.Tests
 {
     [Trait("Category", "MvcBuilderExtensions")]
-    public class MvcBuilderExtensionsTests : IClassFixture<MvcBuilderExtensionsTestsFixture>
+    public class MvcBuilderExtensionsTests(MvcBuilderExtensionsTestsFixture fixture) : IClassFixture<MvcBuilderExtensionsTestsFixture>
     {
-        public MvcBuilderExtensionsTestsFixture Fixture;
-
-        public MvcBuilderExtensionsTests(MvcBuilderExtensionsTestsFixture fixture)
-        {
-            Fixture = fixture;
-        }
-
-        public static IEnumerable<object[]> NeededServices =
-            new List<object[]>
-            {
-                new []{ typeof(INodeJSService) },
-                new []{ typeof(IPugRendering) },
-                new []{ typeof(IPugnetViewEngine) }
-            };
+        public static readonly IEnumerable<object[]> NeededServices =
+            [
+                [typeof(INodeJSService)],
+                [typeof(IPugRenderer)],
+                [typeof(IPugViewEngine)]
+            ];
 
         [Theory]
         [MemberData(nameof(NeededServices))]
-        public void MvcBuilderExtensions_AddPugnet_AddsNeededServices(Type neededService)
+        public void MvcBuilderExtensions_AddPug_AddsNeededServices(Type neededService)
         {
-            Assert.Contains(neededService, Fixture.Services);
+            Assert.Contains(neededService, fixture.Services);
         }
-
     }
 
     public class MvcBuilderExtensionsTestsFixture
@@ -41,7 +31,7 @@ namespace Pugnet.Tests
         public MvcBuilderExtensionsTestsFixture()
         {
             var mvcBuilder = new MvcBuilder(new ServiceCollection(), new ApplicationPartManager());
-            mvcBuilder.AddPugnet();
+            _ = mvcBuilder.AddPug();
             Services = mvcBuilder.Services.Select(s => s.ServiceType).ToList();
         }
     }

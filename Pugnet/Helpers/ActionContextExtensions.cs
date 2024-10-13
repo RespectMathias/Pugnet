@@ -1,4 +1,4 @@
-namespace Pugnet.Extensions;
+namespace Pugnet.Helpers;
 
 public static class ActionContextExtensions
 {
@@ -8,13 +8,13 @@ public static class ActionContextExtensions
 
         ArgumentNullException.ThrowIfNull(key);
 
-        if (!context.RouteData.Values.TryGetValue(key, out object routeValue))
+        if (!context.RouteData.Values.TryGetValue(key, out var routeValue))
         {
             return null!;
         }
 
         string normalizedValue = null!;
-        if (context.ActionDescriptor.RouteValues.TryGetValue(key, out string? value) && !string.IsNullOrEmpty(value))
+        if (context.ActionDescriptor.RouteValues.TryGetValue(key, out var value) && !string.IsNullOrEmpty(value))
         {
             normalizedValue = value;
         }

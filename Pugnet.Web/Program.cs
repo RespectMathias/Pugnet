@@ -1,9 +1,9 @@
-using Pugnet.Extensions;
+using Pugnet;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddControllersWithViews().AddPugnet();
+builder.Services.AddControllersWithViews().AddPug();
 
 var app = builder.Build();
 

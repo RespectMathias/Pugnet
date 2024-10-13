@@ -6,11 +6,13 @@ using Microsoft.Extensions.Options;
 using Moq;
 using Pugnet.Helpers;
 using Pugnet.Interfaces;
+using Pugnet.Options;
+using Pugnet.Rendering;
 
 namespace Pugnet.Tests;
 
-[Trait("Category", "Rendering")]
-public class PugRenderingTests(PugRenderingTestsFixture fixture) : IClassFixture<PugRenderingTestsFixture>
+[Trait("Category", "Renderer")]
+public class PugRendererTests(PugRendererTestsFixture fixture) : IClassFixture<PugRendererTestsFixture>
 {
     public static IEnumerable<object[]> Names =>
         [
@@ -114,22 +116,22 @@ public class PugRenderingTests(PugRenderingTestsFixture fixture) : IClassFixture
     }
 }
 
-public class PugRenderingTestsFixture
+public class PugRendererTestsFixture
 {
-    public IPugRendering Renderer { get; }
+    public IPugRenderer Renderer { get; }
     public string TestPugDirectory { get; }
 
-    public PugRenderingTestsFixture()
+    public PugRendererTestsFixture()
     {
         // Set the TEMP environment variable to a directory within the project directory
         var tempDir = Path.Combine(Directory.GetCurrentDirectory(), "Temp");
         _ = Directory.CreateDirectory(tempDir);
         Environment.SetEnvironmentVariable("TEMP", tempDir);
 
-        // Mock the options for PugnetViewEngineOptions
-        var optionsMock = new Mock<IOptions<PugnetViewEngineOptions>>();
+        // Mock the options for ViewEngineOptions
+        var optionsMock = new Mock<IOptions<ViewEngineOptions>>();
         _ = optionsMock.SetupGet(q => q.Value)
-                       .Returns(new PugnetViewEngineOptions
+                       .Returns(new ViewEngineOptions
                        {
                            Pretty = false
                        });
@@ -150,6 +152,6 @@ public class PugRenderingTestsFixture
         var nodeJSService = serviceProvider.GetRequiredService<INodeJSService>();
 
         // Instantiate the renderer with the nodeJSService
-        Renderer = new PugRendering(nodeJSService, optionsMock.Object);
+        Renderer = new PugRenderer(nodeJSService, optionsMock.Object);
     }
 }

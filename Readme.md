@@ -22,7 +22,7 @@ In your `Program.cs`:
 
 ```csharp
 services.AddControllersWithViews()
-        .AddPugnet();
+        .AddPug();
 ```
 
 Place your `.pug` files in the `Views` directory.

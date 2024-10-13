@@ -23,21 +23,19 @@ public class PugRendering : IPugRendering
 
     public async Task<string> Render(FileInfo pugFile, object model, ViewDataDictionary viewData, ModelStateDictionary modelState)
     {
-        var opts = _options != null ? new
+        var opts = new
         {
             pretty = _options.Pretty ? "\t" : null,
             basedir = _options.BaseDir
-        } : new object();
+        };
 
-        // Build the module path to "pugcompile.js"
         var modulePath = Path.Combine(_tempDirectory, "pugcompile.js");
 
-        // Invoke the JavaScript module using INodeJSService
         return await _nodeJSService
             .InvokeFromFileAsync<string>(
                 modulePath: modulePath,
-                args: new object[] { pugFile.FullName, model, viewData, modelState, opts }
+                args: [pugFile.FullName, model, viewData, modelState, opts]
             )
-            .ConfigureAwait(false);
+            .ConfigureAwait(false) ?? string.Empty;
     }
 }

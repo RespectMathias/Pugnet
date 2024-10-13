@@ -27,10 +27,10 @@ public static class PathHelper
         // Get directory name (including final slash) but do not use Path.GetDirectoryName() to preserve path
         // normalization.
         var index = executingFilePath.LastIndexOf('/');
-        return executingFilePath.Substring(0, index + 1) + pagePath;
+        return executingFilePath[..(index + 1)] + pagePath;
     }
 
-    public static bool IsAbsolutePath(string name) => name.StartsWith("~/") || name.StartsWith("/");
+    public static bool IsAbsolutePath(string name) => name.StartsWith("~/") || name.StartsWith('/');
 
     // Though ./ViewName looks like a relative path, framework searches for that view using view locations.
     public static bool IsRelativePath(string name) => !IsAbsolutePath(name);

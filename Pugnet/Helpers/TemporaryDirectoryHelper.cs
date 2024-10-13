@@ -1,25 +1,16 @@
 namespace Pugnet.Helpers;
 
-public class TemporaryDirectoryHelper
+public static class TemporaryDirectoryHelper
 {
-    private static string _tempDirectory;
-
-    public TemporaryDirectoryHelper()
+    public static string CreateTemporaryDirectory()
     {
-        _tempDirectory = CreateTemporaryDirectoryPath();
-    }
+        var tempDirectory = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
 
-    private static string CreateTemporaryDirectoryPath() => Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
-
-    public static string CreateTemporaryDirectory(bool forceNew = false)
-    {
-        _tempDirectory = _tempDirectory == null || forceNew ? CreateTemporaryDirectoryPath() : _tempDirectory;
-
-        if (!Directory.Exists(_tempDirectory))
+        if (!Directory.Exists(tempDirectory))
         {
-            Directory.CreateDirectory(_tempDirectory);
+            _ = Directory.CreateDirectory(tempDirectory);
         }
 
-        return _tempDirectory;
+        return tempDirectory;
     }
 }

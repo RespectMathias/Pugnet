@@ -1,6 +1,6 @@
 namespace Pugnet;
 
-public class Constants
+public static class Constants
 {
     public const string VIEW_EXTENSION = ".pug";
     public const string CONTROLLER_KEY = "controller";

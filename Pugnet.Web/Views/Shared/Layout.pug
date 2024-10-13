@@ -3,7 +3,7 @@ html(lang="en")
   head
     meta(charset="utf-8")
     meta(name="viewport", content="width=device-width, initial-scale=1.0")
-    title #{ViewData["Title"]} - Pugnet.Web
+    title Pugnet.Web
     link(rel="stylesheet", href="/lib/bootstrap/dist/css/bootstrap.min.css")
     link(rel="stylesheet", href="/css/site.css")
     link(rel="stylesheet", href="/Pugnet.Web.styles.css")
@@ -23,10 +23,10 @@ html(lang="en")
     .container
       main(role="main", class="pb-3")
         block body
-    footer.border-top.footer.text-muted
-      .container
-        | &copy; 2024 - Pugnet.Web - 
-        a(href="/Home/Privacy") Privacy
+    footer.border-top.footer.text-muted.fixed-bottom
+        div.container.p-3
+            | &copy; 2024 - Pugnet.Web - 
+            a(href="/Home/Privacy") Privacy
     script(src="/lib/jquery/dist/jquery.min.js")
     script(src="/lib/bootstrap/dist/js/bootstrap.bundle.min.js")
     script(src="/js/site.js")

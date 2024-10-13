@@ -6,9 +6,9 @@ namespace Pugnet.Tests;
 public class TempDirectoryHelperTests
 {
     [Fact]
-    void Directory_Created_Exists()
+    private void Directory_Created_Exists()
     {
-        var path = TemporaryDirectoryHelper.CreateTemporaryDirectory(true);
+        var path = TemporaryDirectoryHelper.CreateTemporaryDirectory();
         var result = Directory.Exists(path);
         Assert.True(result);
     }

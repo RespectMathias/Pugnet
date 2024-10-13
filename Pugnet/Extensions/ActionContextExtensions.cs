@@ -2,25 +2,19 @@ namespace Pugnet.Extensions;
 
 public static class ActionContextExtensions
 {
-    public static string GetNormalizedRouteValue(this ActionContext context, string key)
+    public static string? GetNormalizedRouteValue(this ActionContext context, string key)
     {
-        if (context == null)
-        {
-            throw new ArgumentNullException(nameof(context));
-        }
+        ArgumentNullException.ThrowIfNull(context);
 
-        if (key == null)
-        {
-            throw new ArgumentNullException(nameof(key));
-        }
+        ArgumentNullException.ThrowIfNull(key);
 
         if (!context.RouteData.Values.TryGetValue(key, out object routeValue))
         {
-            return null;
+            return null!;
         }
 
-        string normalizedValue = null;
-        if (context.ActionDescriptor.RouteValues.TryGetValue(key, out string value) && !string.IsNullOrEmpty(value))
+        string normalizedValue = null!;
+        if (context.ActionDescriptor.RouteValues.TryGetValue(key, out string? value) && !string.IsNullOrEmpty(value))
         {
             normalizedValue = value;
         }

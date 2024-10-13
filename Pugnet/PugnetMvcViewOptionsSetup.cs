@@ -3,31 +3,18 @@ using Pugnet.Interfaces;
 
 namespace Pugnet;
 
-public class PugnetMvcViewOptionsSetup : IConfigureOptions<MvcViewOptions>
+/// <summary> Initializes a new instance of <see cref="PugnetMvcViewOptionsSetup"/>. </summary>
+/// <param name="PugnetViewEngine">The <see cref="IPugnetViewEngine"/>.</param>
+public class PugnetMvcViewOptionsSetup(IPugnetViewEngine PugnetViewEngine) : IConfigureOptions<MvcViewOptions>
 {
-    private readonly IPugnetViewEngine _PugnetViewEngine;
+    private readonly IPugnetViewEngine _pugnetViewEngine = PugnetViewEngine ?? throw new ArgumentNullException(nameof(PugnetViewEngine));
 
-    /// <summary>
-    /// Initializes a new instance of <see cref="PugnetMvcViewOptionsSetup"/>.
-    /// </summary>
-    /// <param name="PugnetViewEngine">The <see cref="IPugnetViewEngine"/>.</param>
-    public PugnetMvcViewOptionsSetup(IPugnetViewEngine PugnetViewEngine)
-    {
-        _PugnetViewEngine = PugnetViewEngine ?? throw new ArgumentNullException(nameof(PugnetViewEngine));
-    }
-
-    /// <summary>
-    /// Configures <paramref name="options"/> to use <see cref="PugnetViewEngine"/>.
-    /// </summary>
+    /// <summary> Configures <paramref name="options"/> to use <see cref="PugnetViewEngine"/>. </summary>
     /// <param name="options">The <see cref="MvcViewOptions"/> to configure.</param>
     public void Configure(MvcViewOptions options)
     {
-        if (options == null)
-        {
-            throw new ArgumentNullException(nameof(options));
-        }
+        ArgumentNullException.ThrowIfNull(options);
 
-        options.ViewEngines.Add(_PugnetViewEngine);
+        options.ViewEngines.Add(_pugnetViewEngine);
     }
-
 }

@@ -8,21 +8,14 @@ using static Pugnet.Constants;
 
 namespace Pugnet;
 
-public class PugnetViewEngine : IPugnetViewEngine
+public class PugnetViewEngine(IPugRendering pugRendering, IOptions<PugnetViewEngineOptions> optionsAccessor) : IPugnetViewEngine
 {
-    private readonly IPugRendering _pugRendering;
-    private readonly PugnetViewEngineOptions _options;
-
-    public PugnetViewEngine(IPugRendering pugRendering, IOptions<PugnetViewEngineOptions> optionsAccessor)
-    {
-        _options = optionsAccessor?.Value ?? throw new ArgumentNullException(nameof(optionsAccessor));
-        _pugRendering = pugRendering;
-    }
+    private readonly PugnetViewEngineOptions _options = optionsAccessor?.Value ?? throw new ArgumentNullException(nameof(optionsAccessor));
 
     public ViewEngineResult FindView(ActionContext context, string viewName, bool isMainPage)
     {
         var controllerName = context.GetNormalizedRouteValue(CONTROLLER_KEY);
-        var areaName = context.GetNormalizedRouteValue(AREA_KEY);
+        _ = context.GetNormalizedRouteValue(AREA_KEY);
 
         var checkedLocations = new List<string>();
         foreach (var location in _options.ViewLocationFormats)
@@ -31,7 +24,7 @@ public class PugnetViewEngine : IPugnetViewEngine
             if (File.Exists(view))
             {
                 // ReSharper disable once Mvc.ViewNotResolved
-                return ViewEngineResult.Found("Default", new PugnetView(view, _pugRendering));
+                return ViewEngineResult.Found("Default", new PugnetView(view, pugRendering));
             }
             checkedLocations.Add(view);
         }
@@ -46,10 +39,10 @@ public class PugnetViewEngine : IPugnetViewEngine
         if (!PathHelper.IsAbsolutePath(viewPath))
         {
             // Not a path this method can handle.
-            return ViewEngineResult.NotFound(applicationRelativePath, Enumerable.Empty<string>());
+            return ViewEngineResult.NotFound(applicationRelativePath, []);
         }
 
         // ReSharper disable once Mvc.ViewNotResolved
-        return ViewEngineResult.Found("Default", new PugnetView(applicationRelativePath, _pugRendering));
+        return ViewEngineResult.Found("Default", new PugnetView(applicationRelativePath, pugRendering));
     }
 }

@@ -1,0 +1,36 @@
+# This workflow will build a .NET project
+# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-net
+
+name: .NET
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: 8.0.x
+    - name: Restore dependencies (Pugnet)
+      run: dotnet restore
+      working-directory: Pugnet
+
+    - name: Build (Pugnet)
+      run: dotnet build --no-restore
+      working-directory: Pugnet
+
+    - name: Restore dependencies (Pugnet.Tests)
+      run: dotnet restore
+      working-directory: Pugnet.Tests
+    - name: Test (Pugnet.Tests)
+      run: dotnet test
+      working-directory: Pugnet.Tests

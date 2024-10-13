@@ -19,10 +19,13 @@
     <Compile Remove="node_modules\**" />
     <EmbeddedResource Remove="node_modules\**" />
     <None Remove="node_modules\**" />
+    <Compile Remove="package.json;package-lock.json" />
+    <EmbeddedResource Remove="package.json;package-lock.json" />
+    <None Remove="package.json;package-lock.json" />
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="embeddedNodeResources.zip" Exclude="bin\**;obj\**;**\*.xproj;packages\**;@(EmbeddedResource)" />
+    <EmbeddedResource Include="Resources\embeddedNodeResources.zip" Exclude="bin\**;obj\**;**\*.xproj;packages\**;@(EmbeddedResource)" />
   </ItemGroup>
 
   <ItemGroup>

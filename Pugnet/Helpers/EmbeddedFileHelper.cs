@@ -20,7 +20,7 @@ public static class EmbeddedFileHelper
                 var tempDir = new DirectoryInfo(tempDirectory);
                 foreach (var entry in archive.Entries)
                 {
-                    var filePath = $"{tempDir.FullName}\\{entry.FullName}";
+                    var filePath = Path.Combine(tempDir.FullName, entry.FullName);
                     if (File.Exists(filePath))
                     {
                         continue;

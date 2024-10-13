@@ -8,7 +8,7 @@
     <Copyright>Apache-2.0</Copyright>
     <Title>Pugnet</Title>
     <PackageProjectUrl>https://github.com/RespectMathias/Pugnet</PackageProjectUrl>
-    <Description>**Pugnet** is a modern Pug view engine for ASP.NET Core, forked from [Pugzor](https://github.com/AspNetMonsters/pugzor). It is updated for .NET 8 and using Jering's `Javascript.NodeJS`.</Description>
+    <Description>Pugnet is a modern Pug view engine for ASP.NET Core, forked from Pugzor. It is updated for .NET 8 and using Jering's Javascript.NodeJS.</Description>
     <RepositoryUrl>https://github.com/RespectMathias/Pugnet</RepositoryUrl>
     <PackageReadmeFile>Readme.md</PackageReadmeFile>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>

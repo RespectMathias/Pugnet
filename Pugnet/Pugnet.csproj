@@ -13,6 +13,7 @@
     <PackageReadmeFile>Readme.md</PackageReadmeFile>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <PackageTags>pug;pugnet;pugzor;view-engine;aspnetcore;asp-net-core;dotnet;net8;templating;javascript-nodejs;razor-alternative;modern-pug;pug-template;mvc;web-development;frontend;server-side-rendering;html-template;pugjs</PackageTags>
+    <VersionPrefix>1.0.1</VersionPrefix>
   </PropertyGroup>
 
   <ItemGroup>

@@ -1,6 +1,6 @@
 # Pugnet
 
-**Pugnet** is a modern Pug view engine for ASP.NET Core, forked from [Pugzor](https://github.com/DavidPaquette/Pugzor). It is updated for .NET 8 and using Jering's `Javascript.NodeJS`.
+**Pugnet** is a modern Pug view engine for ASP.NET Core, forked from [Pugzor](https://github.com/AspNetMonsters/pugzor). It is updated for .NET 8 and using Jering's `Javascript.NodeJS`.
 
 ---
 
@@ -43,7 +43,7 @@ public class Model
 **Pug Template:**
 
 ```pug
-p= FirstName
+p #{FirstName} 
 ```
 
 ---

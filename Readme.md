@@ -14,8 +14,6 @@ Learn more about Pug at [pugjs.org](https://pugjs.org/api/getting-started.html).
 Install-Package Pugnet
 ```
 
-*Note: Package availability coming soon.*
-
 ---
 
 ## 🔨 Usage
@@ -43,7 +41,7 @@ public class Model
 **Pug Template:**
 
 ```pug
-p #{FirstName} 
+p #{FirstName}
 ```
 
 ---

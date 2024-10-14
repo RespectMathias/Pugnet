@@ -31,9 +31,9 @@ public class PugViewEngine(IPugRenderer pugRenderer, IOptions<ViewEngineOptions>
         return ViewEngineResult.NotFound(viewName, checkedLocations);
     }
 
-    public ViewEngineResult GetView(string executingFilePath, string viewPath, bool isMainPage)
+    public ViewEngineResult GetView(string? executingFilePath, string viewPath, bool isMainPage)
     {
-        var applicationRelativePath = PathHelper.GetAbsolutePath(executingFilePath, viewPath);
+        var applicationRelativePath = PathHelper.GetAbsolutePath(executingFilePath!, viewPath);
 
         if (!PathHelper.IsAbsolutePath(viewPath))
         {

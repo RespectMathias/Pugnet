@@ -97,7 +97,7 @@ public class PugRendererTests(PugRendererTestsFixture fixture) : IClassFixture<P
         modelState.AddModelError("testError", testString);
 
         // Get the error message
-        var errorMessage = modelState["testError"].Errors[0].ErrorMessage;
+        var errorMessage = modelState["testError"]!.Errors[0].ErrorMessage;
 
         // Include 'errorMessage' in the model
         var model = new { errorMessage };

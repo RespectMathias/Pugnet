@@ -10,7 +10,7 @@ public class PugView(string path, IPugRenderer pugRenderer) : IView
 
     public async Task RenderAsync(ViewContext context)
     {
-        var result = await pugRenderer.Render(new FileInfo(Path), context.ViewData.Model, context.ViewData, context.ModelState).ConfigureAwait(false);
+        var result = await pugRenderer.Render(new FileInfo(Path), context.ViewData.Model!, context.ViewData, context.ModelState).ConfigureAwait(false);
         await context.Writer.WriteAsync(result);
     }
 }

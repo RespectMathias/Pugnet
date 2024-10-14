@@ -1,38 +1,44 @@
-using Jering.Javascript.NodeJS;
-using Microsoft.AspNetCore.Mvc.ApplicationParts;
-using Microsoft.AspNetCore.Mvc.Internal;
 using Microsoft.Extensions.DependencyInjection;
 using Pugnet.Interfaces;
+using Jering.Javascript.NodeJS;
 
-namespace Pugnet.Tests
+namespace Pugnet.Tests;
+
+[Trait("Category", "MvcBuilderExtensions")]
+public class MvcBuilderExtensionsTests(MvcBuilderExtensionsTestsFixture fixture) : IClassFixture<MvcBuilderExtensionsTestsFixture>
 {
-    [Trait("Category", "MvcBuilderExtensions")]
-    public class MvcBuilderExtensionsTests(MvcBuilderExtensionsTestsFixture fixture) : IClassFixture<MvcBuilderExtensionsTestsFixture>
-    {
-        public static readonly IEnumerable<object[]> NeededServices =
-            [
-                [typeof(INodeJSService)],
-                [typeof(IPugRenderer)],
-                [typeof(IPugViewEngine)]
-            ];
+    public static readonly IEnumerable<object[]> NeededServices =
+        [
+            [typeof(INodeJSService)],
+            [typeof(IPugRenderer)],
+            [typeof(IPugViewEngine)]
+        ];
 
-        [Theory]
-        [MemberData(nameof(NeededServices))]
-        public void MvcBuilderExtensions_AddPug_AddsNeededServices(Type neededService)
-        {
-            Assert.Contains(neededService, fixture.Services);
-        }
+    [Theory]
+    [MemberData(nameof(NeededServices))]
+    public void AddPugnet_Registers_Needed_Services(Type neededService)
+    {
+        Assert.Contains(fixture.Services, s => s.ServiceType == neededService && s.Lifetime == ServiceLifetime.Singleton);
     }
+}
 
-    public class MvcBuilderExtensionsTestsFixture
+public class MvcBuilderExtensionsTestsFixture
+{
+    public IServiceProvider ServiceProvider { get; }
+    public List<ServiceDescriptor> Services { get; }
+
+    public MvcBuilderExtensionsTestsFixture()
     {
-        public IEnumerable<Type> Services { get; }
+        var services = new ServiceCollection();
+        var mvcBuilder = services.AddControllersWithViews();
 
-        public MvcBuilderExtensionsTestsFixture()
+        _ = mvcBuilder.AddPug(options =>
         {
-            var mvcBuilder = new MvcBuilder(new ServiceCollection(), new ApplicationPartManager());
-            _ = mvcBuilder.AddPug();
-            Services = mvcBuilder.Services.Select(s => s.ServiceType).ToList();
-        }
+            options.BaseDir = "Views";
+            options.Pretty = true;
+        });
+
+        ServiceProvider = services.BuildServiceProvider();
+        Services = [.. services];
     }
 }
